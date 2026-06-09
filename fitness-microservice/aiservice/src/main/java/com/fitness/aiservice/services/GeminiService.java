@@ -26,12 +26,25 @@ public class GeminiService {
                         Map.of("text",question)
                 })
         });
-        String response=webClient.post().uri(geminiApiUri+geminiApiKey)
-                .header("Content-Type","application/json")
-                .bodyValue(requestBody)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-        return response;
+//        String response=webClient.post().uri(geminiApiUri+geminiApiKey)
+//                .header("Content-Type","application/json")
+//                .bodyValue(requestBody)
+//                .retrieve()
+//                .bodyToMono(String.class)
+//                .block();
+//        return response;
+        try {
+            return webClient.post()
+                    .uri(geminiApiUri + geminiApiKey)
+                    .header("Content-Type", "application/json")
+                    .bodyValue(requestBody)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 }
